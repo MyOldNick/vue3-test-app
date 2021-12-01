@@ -1,30 +1,45 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <component :is="activeLayout">
+    <router-view />
+  </component>
 </template>
 
+<script lang="ts">
+//vue
+import { defineComponent, computed } from "vue";
+import { useRoute } from "vue-router";
+//layouts
+import Default from "@/layouts/Default.vue";
+
+export default defineComponent({
+  name: "App",
+  componens: {
+    Default,
+  },
+  setup() {
+    //hooks
+    const route = useRoute();
+
+    const activeLayout = computed(() => route.meta.layout || Default);
+
+    return {
+      activeLayout,
+    };
+  },
+});
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
 }
 </style>
