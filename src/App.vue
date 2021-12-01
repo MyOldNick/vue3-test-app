@@ -13,7 +13,7 @@ import Default from "@/layouts/Default.vue";
 
 export default defineComponent({
   name: "App",
-  componens: {
+  components: {
     Default,
   },
   setup() {
